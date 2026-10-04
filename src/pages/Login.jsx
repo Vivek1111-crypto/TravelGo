@@ -23,7 +23,11 @@ function Login() {
       login(response.data);
       console.log("Login successful");
 
-      navigate("/properties");
+      if (response.data.role === "ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/properties");
+      }
     } catch (error) {
       console.error("Login failed:", error);
     }

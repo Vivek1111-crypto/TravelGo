@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 function Booking() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const { property, room } = location.state || {};
 
@@ -30,7 +31,11 @@ function Booking() {
 
       console.log("Booking successful:", response.data);
 
-      alert("Booking created successfully!");
+      navigate("/payment", {
+        state: {
+          booking: response.data,
+        },
+      });
     } catch (error) {
       console.error("Booking failed:", error);
 
